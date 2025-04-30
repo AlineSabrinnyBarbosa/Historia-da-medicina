@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História da Medicina | EMESCAM</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+            font-size: 16px;
+        }
+        
+        /* Cores institucionais EMESCAM */
+        :root {
+            --primary-color: #049145; /* Azul EMESCAM */
+            --secondary-color: #008080; /* Verde-água secundário */
+            --accent-color: #ff6600; /* Laranja para destaques */
+            --light-color: #f4f4f4;
+            --dark-color: #333;
+            --text-color: #444;
+        }
+        .timeline-image{
+            display: none;
+        }
+        /* Estilos gerais */
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify; /* Texto justificado conforme solicitado */
+        }
+        
+        ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Cabeçalho */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-container img {
+            max-height: 80px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+        
+        nav li {
+            margin-left: 20px;
+        }
+        
+        nav a {
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        /* Seção Hero */
+        .hero {
+            background: linear-gradient(rgba(4, 124, 18, 0.8), rgba(5, 205, 35, 0.8)), url('/api/placeholder/1200/400') center/cover no-repeat;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        /* Seções de conteúdo */
+        .section {
+            padding: 60px 0;
+            background-color: white;
+            
+        }
+        
+        .section:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .intro-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid var(--accent-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h3 {
+            color: var(--secondary-color);
+        }
+        
+        .date {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .parallel-events {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f3f3f3;
+            border-left: 3px solid var(--accent-color);
+            font-size: 0.9rem;
+        }
+        
+        /* Adicionar imagem na linha do tempo */
+        .timeline-image {
+            margin: 15px 0;
+            text-align: center;
+            
+        }
+        .timeline-image png {
+          display: none;
+        }
+        .timeline-image img {
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .image-caption {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        /* Civilizações */
+        .civilization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .civilization-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .civilization-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: rgb(255, 255, 255);
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 20px;
+            background-color: cornsilk;
+            position: relative;
+        }
+        
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        /* Regras da universidade EMESCAM para trabalhos acadêmicos */
+        .academic-rules {
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        
+        .academic-citation {
+            padding-left: 40px;
+            margin-bottom: 15px;
+            position: relative;
+            font-style: italic;
+        }
+        
+        .academic-citation::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+            position: absolute;
+            left: 0;
+            top: -10px;
+        }
+        
+        .reference-list {
+            border-top: 1px solid #ddd;
+            margin-top: 30px;
+            padding-top: 20px;
+        }
+        
+        .reference-item {
+            padding-left: 25px;
+            text-indent: -25px;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        
+        /* Rodapé */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .footer-content {
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            padding: 5px;
+        }
+        
+        .back-to-top {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .back-to-top:hover {
+            background-color: #e65c00;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .intro-grid, 
+            .timeline-item {
+                grid-template-columns: 1fr;
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item::after {
+                left: 15px;
+                right: auto;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav li {
+                margin: 5px 0;
+            }
+            
+            .header-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="Imagem_do_WhatsApp_de_2025-04-28_à_s__18.08.56_0f6a2d1c-removebg-preview.png" alt="Logo EMESCAM">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#introducao">Introdução</a></li>
+                    <li><a href="#timeline">Linha do Tempo</a></li>
+                    <li><a href="#conclusao">Conclusão</a></li>
+                    <li><a href="#referencias">Referências</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>A Trajetória da Medicina ao Longo dos Séculos</h1>
+            <p>Da magia e superstição ao conhecimento científico: como a medicina evoluiu através das diferentes culturas e civilizações para se tornar o que conhecemos hoje.</p>
+        </div>
+    </section>
+
+    <section class="intro" id="introducao">
+        <div class="container">
+           
+            
+            <div class="intro-grid">
+                <div>
+                    <h2>História</h2>
+                    <p>A medicina evoluiu da mistura entre magia, religião e empirismo para o conhecimento científico baseado em observação e experimentação.</p>
+                    <p>Destaca-se a importância dos gregos em desvincular a medicina da superstição, o retrocesso na Idade Média e o avanço científico a partir do Renascimento.</p>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="timeline">
+        <div class="container">
+            <h2>Linha do Tempo da Medicina</h2>            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h2> Medicina Primitiva (desde ~1 milhão de anos até ~4000 a.C.)</h2>
+                <ul>
+                    <li>Origem do termo "medicina": do latim <em>mederi</em> — curar, cuidar.</li>
+                    <li>Homo erectus (~800.000 anos atrás) já apresentava sinais de doenças ósseas.</li>
+                    <li>Cirurgias rudimentares: trepanações, imobilizações de fraturas com talas de madeira, extração de flechas e lanças.</li>
+                    <li>Alívio da dor com álcool e plantas com efeito anestésico.</li>
+                    <li>Nascimento assistido geralmente por mulheres; puérperas tinham maior tempo de repouso em sociedades sedentárias.</li>
+                    <li>Diagnóstico e tratamento baseado em magia, espíritos e transes de xamãs.</li>
+                    <li>Doenças contagiosas dizimavam comunidades. Tribos africanas praticavam variolação (antecedente da vacinação).</li>
+                </ul>
+                    </div>
+                </div>
+                
+                
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h2> Medicina Egípcia (~1550 a.C.)</h2>
+                <ul>
+                    <li>Fontes principais: Papiro de Ebers (remédios e práticas mágicas) e Papiro de Smith (casos clínicos e procedimentos cirúrgicos).</li>
+                    <li>Tratamentos com óleo de rícino, casca de salgueiro (ácido acetilsalicílico), goma de acácia e mel como anticoncepcional.</li>
+                    <li>Diagnóstico de gravidez por germinação de cevada com urina da mulher.</li>
+                    <li>Avaliação do pulso e circuncisão masculina como práticas clínicas normais.</li>
+                </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h2> Medicina Chinesa (desde ~2200 a.C. até o século XX)</h2>
+                        <ul>
+                            <li>Fundamentos filosóficos: taoísmo e confucionismo. Saúde = equilíbrio do Qi (energia vital) entre Yin e Yang.</li>
+                            <li>Diagnóstico por:
+                                <ul>
+                                    <li>Observação (língua, olhos, pele);</li>
+                                    <li>Palpação do pulso em 6 posições;</li>
+                                    <li>Audição (voz, respiração);</li>
+                                    <li>Interrogatório detalhado.</li>
+                                </ul>
+                            </li>
+                            <li>Tratamentos: acupuntura, moxabustão, ventosaterapia, fitoterapia, massagens e exercícios como tai chi e lian gong.</li>
+                            <li>Durante a Revolução Cultural (China, 1966–1976), a medicina foi unificada sob controle político, com surgimento dos "médicos de pés descalços" — profissionais com treinamento mínimo.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h2> Medicina Greco-Romana (~600 a.C. – 476 d.C.)</h2>
+                        <ul>
+                            <li>Período pré-hipocrático: Alcmeon (descoberta dos nervos ópticos e equilíbrio de opostos), Empédocles (teoria dos 4 humores).</li>
+                            <li>Hipócrates (~460 a.C.): prática médica baseada na razão e observação; pai da medicina racional.</li>
+                            <li>Medicina como equilíbrio dos humores: sangue, fleuma, bílis amarela, bílis negra.</li>
+                            <li>Galeno (162 d.C.): expandiu teoria dos humores, via o corpo como máquina integrada.</li>
+                            <li>Roma profissionalizou a prática médica: médicos públicos e militares, regulamentação estatal, hospitais nas cidades.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h2> Medicina no Mundo Árabe (Séculos VIII a XIII)</h2>
+                        <ul>
+                            <li>Avicena (Cânone da Medicina), Al-Razi, Ibn al-Nafis e Albucasis ampliaram o conhecimento greco-romano.</li>
+                            <li>Criação dos primeiros hospitais como centros de ensino, farmácias e desenvolvimento da cirurgia, psicoterapia e farmacologia.</li>
+                            <li>Circulação pulmonar descrita antes de William Harvey por Ibn al-Nafis.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h2>Idade Média (476 – 1453)</h2>
+                        <ul>
+                            <li>Medicina dominada pela Igreja e pela fé.</li>
+                            <li>Doença como castigo divino; foco em salvar a alma.</li>
+                            <li>Médicos eram monges; ensino se restringia aos mosteiros.</li>
+                            <li>Apesar disso, algumas universidades como a de Salerno floresceram com influência dos textos árabes e greco-romanos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h2> Renascimento (a partir de 1453)</h2>
+                <ul>
+                    <li>Redescoberta da dissecação anatômica.</li>
+                    <li>Hospitais deixam de ser locais apenas de exclusão (como leprosários) e passam a prestar assistência real.</li>
+                    <li>A medicina começa a se basear em observação direta e experimentação.</li>
+                </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h2> Séculos XVII e XVIII</h2>
+                        <ul>
+                            <li>Criação de escolas médicas e institucionalização do saber médico.</li>
+                            <li>William Harvey (1628) descreve a circulação do sangue.</li>
+                            <li>Medicina baseada em escrita, ensino universitário e racionalidade científica.</li>
+                        </ul>
+    </div>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-content">
+        <h2> Século XIX</h2>
+        <ul>
+            <li>Revolução na medicina com Pasteur e Koch: surgimento da teoria microbiana.</li>
+            <li>Virchow: teoria celular ("toda célula vem de outra célula").</li>
+            <li>Medicina alcança prestígio e profissionalização máxima.</li>
+            <li>O médico se torna figura de poder e autoridade científica.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-content">
+        <h2> Século XX</h2>
+                <ul>
+                    <li>A medicina assume caráter técnico, especializado e altamente burocrático.</li>
+                    <li>Avanços em exames, anestesia, antibióticos, transplantes e diagnóstico por imagem.</li>
+                    <li>Relação médico-paciente se torna mais distante; medicina passa a ser influenciada por interesses mercantis.</li>
+                </ul>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="timeline-item">
+    <div class="timeline-content">
+        <h2> História da Medicina no Brasil</h2>
+                <ul>
+                    <li>Período colonial: coexistência entre saber indígena e europeu.</li>
+                    <li>1808: Criação das primeiras escolas médicas na Bahia e no Rio de Janeiro.</li>
+                    <li>Década de 1980: crise no modelo previdenciário leva à reorganização da assistência à saúde.</li>
+                    <li>Década de 2000 em diante: grande expansão das faculdades de medicina, especialmente privadas.</li>
+                </ul>
+    </div>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-content">
+        <h2> Sistema Único de Saúde – SUS (1988 em diante)</h2>
+        <ul>
+            <li>Resultado da Reforma Sanitária e da Constituição de 1988.</li>
+            <li>Princípios: universalidade, integralidade e equidade.</li>
+            <li>Lei nº 8.080/1990 criou oficialmente o SUS.</li>
+            <li>Transferência do INAMPS para o Ministério da Saúde.</li>
+            <li>Financiamento descentralizado e integração dos estados e municípios no modelo de gestão.</li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="timeline">
+    <div class="container">
+        <h1>Acontecimentos Simultâneos Relacionados à Medicina</h1>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Medicina Primitiva vs. Diversidade Cultural</h2>
+                    <ul>
+                        <li>Enquanto povos da Sibéria, África e América praticavam curas mágicas e empíricas, tribos africanas já realizavam <strong>variolação</strong>.</li>
+                        <li>Esquimós tratavam psicóticos como líderes espirituais.</li>
+                        <li>Culturas diferentes aplicavam abordagens distintas à mesma ideia de doença.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Egito e China Antiga (~1500 a.C.)</h2>
+                    <ul>
+                        <li>Enquanto os egípcios desenvolviam a <strong>anatomia via mumificação</strong>, acupuntura e moxabustão já estavam surgindo na <strong>Dinastia Shang</strong> na China.</li>
+                        <li>Ambas civilizações criaram <strong>métodos diagnósticos por pulso</strong> e <strong>tratamentos com plantas medicinais</strong> de forma independente.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Grécia e China (~500 a.C. – 200 d.C.)</h2>
+                    <ul>
+                        <li>Hipócrates desenvolvia a <strong>medicina racional</strong> na Grécia enquanto <strong>Confúcio e Lao-Tsé</strong> estruturavam os princípios do equilíbrio energético e moral da medicina chinesa.</li>
+                        <li>Ambas abordagens valorizavam o equilíbrio, mas por caminhos filosóficos distintos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Mundo Árabe vs. Europa Medieval (séculos VIII a XIII)</h2>
+                    <ul>
+                        <li>Durante a estagnação científica europeia na Alta Idade Média, o Império Islâmico criava <strong>hospitais, farmacopeias e técnicas cirúrgicas sofisticadas</strong>.</li>
+                        <li>O mundo árabe preservava e expandia o conhecimento greco-romano.</li>
+                        <li>Enquanto isso, na Europa, doentes eram tratados com rezas, ervas e isolamento.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Renascimento Europeu vs. Medicina Árabe</h2>
+                    <ul>
+                        <li>Os avanços anatômicos e experimentais do Renascimento ocorreram <strong>após a redescoberta</strong> dos textos árabes traduzidos para o latim, como o <em>Cânone de Avicena</em>.</li>
+                        <li>Esta evolução mostra como o saber de um período anterior foi resgatado séculos depois.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Século XIX – Ciência e Sociedade</h2>
+                    <ul>
+                        <li>Pasteur, Koch e Virchow revolucionavam a medicina com a microbiologia e teoria celular.</li>
+                        <li>Ao mesmo tempo, ideias como o <strong>materialismo histórico de Marx e Engels</strong> e a <strong>teoria da evolução de Darwin</strong> desafiavam os dogmas religiosos.</li>
+                        <li>Estes avanços davam novo status à ciência como explicação da realidade.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Brasil: Expansão da Educação Médica vs. Criação do SUS</h2>
+                    <ul>
+                        <li>Nas décadas finais do século XX, a grande <strong>expansão das faculdades de medicina (especialmente privadas)</strong> ocorreu simultaneamente à consolidação de um sistema público de saúde universal (SUS).</li>
+                        <li>Este fenômeno gerou um paradoxo entre <strong>formação profissional em massa</strong> e <strong>desafios na gestão pública da saúde</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+
+
+<section class="section" id="conclusao">
+<div class="container">
+    <h2>Conclusão</h2>
+    <p>A história da medicina nos mostra uma trajetória de constante evolução, desafios superados e novos horizontes. Da medicina mágico-religiosa primitiva à medicina de precisão contemporânea, o conhecimento médico reflete tanto os avanços científicos quanto as transformações culturais e sociais de cada época.</p>
+    
+    <div class="conclusion-grid">      
+        <div class="conclusion-text">
+            <p>O médico do futuro precisará integrar competências técnico-científicas avançadas com habilidades humanísticas fundamentais. Em um mundo de crescente complexidade, a capacidade de síntese, pensamento crítico e comunicação empática serão tão importantes quanto o domínio das novas tecnologias.</p>
+            
+            <p>Como reflexão final, podemos afirmar que os maiores avanços da medicina sempre ocorreram quando o conhecimento científico se aliou a um profundo senso de humanidade e compromisso social. Este equilíbrio permanece como o grande desafio da medicina no século XXI: utilizar o extraordinário poder da ciência e da tecnologia para promover saúde e bem-estar para todos, sem jamais perder de vista que, no centro de toda prática médica, está o ser humano em sua singularidade e dignidade.</p>
+            
+        </div>
+    </div>
+    
+   
+</div>
+</section>
+
+<section class="section" id="conclusao">
+    <div class="container">
+        <h2>Referências</h2>
+        <p>
+            AMARAL, Jorge Luiz do. Duzentos anos de ensino médico no Brasil. 2007. 232 f. Tese (Doutorado em Saúde Coletiva) – Universidade do Estado do Rio de Janeiro, Rio de Janeiro, 2007.</p>
+        
+        <div class="conclusion-grid">      
+            <div class="conclusion-text">
+                <p>BRASIL. Constituição (1988). Constituição da República Federativa do Brasil. 44. ed. São Paulo. Saraiva, 2015.</p>
+                
+                <p>
+                    DOMINGUES, Joelza Ester. Ensinar História. São Paulo. 2015.
+                    </p>
+                
+            </div>
+        </div>
+        
+       
+    </div>
+    </section>
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 - Aline Sabrinny Barbosa</p>
+    </div>
+    <div class="container">
+        <p>Créditos: Créditos aos discentes da Turma 80 do curso de Medicina.</p>
+    </div>
+</footer>
